@@ -1,10 +1,10 @@
 import {
+  AvatarMood,
   CabinetMetrics,
   CabinetSeat,
   CrisisScenario,
   FactionType,
   GameMode,
-  LogEntry,
   PlengerGameState,
   PolicyCard,
   RoleId,
@@ -12,131 +12,146 @@ import {
 
 export const CABINET_ROLES: {
   roleId: RoleId;
-  roleTitle: string;
   shortTitle: string;
+  roleTitle: string;
   botDefaultName: string;
+  suitColor: string;
+  hasGlasses: boolean;
+  hasMustache: boolean;
 }[] = [
   {
     roleId: "PRESIDEN",
+    shortTitle: "PRESIDEN",
     roleTitle: "Presiden Republik",
-    shortTitle: "Presiden",
     botDefaultName: "Pak Surya",
+    suitColor: "#dc2626",
+    hasGlasses: false,
+    hasMustache: true,
   },
   {
     roleId: "MENKEU",
+    shortTitle: "MENKEU",
     roleTitle: "Menteri Keuangan",
-    shortTitle: "Menkeu",
     botDefaultName: "Bu Sri",
+    suitColor: "#2563eb",
+    hasGlasses: true,
+    hasMustache: false,
   },
   {
     roleId: "MENDAGRI",
+    shortTitle: "MENDAGRI",
     roleTitle: "Menteri Dalam Negeri",
-    shortTitle: "Mendagri",
     botDefaultName: "Pak Tito",
+    suitColor: "#d97706",
+    hasGlasses: false,
+    hasMustache: true,
   },
   {
     roleId: "MENKOMDIGI",
-    roleTitle: "Menteri Komunikasi & Digital",
-    shortTitle: "Menkomdigi",
+    shortTitle: "KOMDIGI",
+    roleTitle: "Menteri Komdigi",
     botDefaultName: "Bang Budi",
+    suitColor: "#0d9488",
+    hasGlasses: true,
+    hasMustache: false,
   },
   {
     roleId: "MENSOS",
+    shortTitle: "MENSOS",
     roleTitle: "Menteri Sosial",
-    shortTitle: "Mensos",
     botDefaultName: "Bu Risma",
+    suitColor: "#e11d48",
+    hasGlasses: true,
+    hasMustache: false,
   },
   {
     roleId: "MENHUB",
+    shortTitle: "MENHUB",
     roleTitle: "Menteri Perhubungan",
-    shortTitle: "Menhub",
     botDefaultName: "Pak Karya",
+    suitColor: "#0284c7",
+    hasGlasses: false,
+    hasMustache: false,
   },
   {
     roleId: "MENKES",
+    shortTitle: "MENKES",
     roleTitle: "Menteri Kesehatan",
-    shortTitle: "Menkes",
-    botDefaultName: "Pak Gunawan",
+    botDefaultName: "Pak Budi G.",
+    suitColor: "#16a34a",
+    hasGlasses: true,
+    hasMustache: false,
   },
   {
     roleId: "MENHUKUM",
-    roleTitle: "Menteri Hukum & Reformasi",
-    shortTitle: "Menhukum",
+    shortTitle: "MENHUKUM",
+    roleTitle: "Menteri Hukum",
     botDefaultName: "Prof. Yusril",
+    suitColor: "#7c3aed",
+    hasGlasses: false,
+    hasMustache: true,
   },
 ];
 
 export const CRISIS_DECK: CrisisScenario[] = [
   {
     id: "CR_PANGAN",
-    ministryHint: "Kemenkeu & Logistik Pangan",
-    headline: "Harga Beras & Cabai Melonjak Jelang Musim Panen",
-    context:
-      "Warganet mengeluhkan harga sembako di pasar induk. Kabinet harus segera menentukan paket intervensi anggaran.",
+    headline: "HARGA BERAS & CABAI NAIK DRASTIS!",
     cards: [
       {
         id: "C_PANGAN_1",
         alignment: "BERSIH",
-        title: "Operasi Pasar Terbuka & Audit Stok Gudang",
-        summary: "Gelar pasar murah transparan dan buka data stok ke publik.",
-        tradeoffNote: "APBN -65T • Publik +9% • Audit +6%",
+        title: "Operasi Pasar & Buka Data Gudang",
+        tagLine: "APBN -65T • PUBLIK +9% • AUDIT +6%",
         delta: { budgetTrillion: -65, publicTrust: 9, auditScore: 6 },
       },
       {
         id: "C_PANGAN_2",
         alignment: "KOMPROMI",
-        title: "Subsidi Ongkos Angkut & Kompromi Fraksi",
-        summary: "Tanggung biaya distribusi lewat BUMN pangan.",
-        tradeoffNote: "APBN -50T • Publik +4% • DPR +6%",
+        title: "Subsidi Ongkos Angkut BUMN",
+        tagLine: "APBN -50T • PUBLIK +4% • DPR +6%",
         delta: { budgetTrillion: -50, publicTrust: 4, dprSupport: 6 },
       },
       {
         id: "C_PANGAN_3",
         alignment: "TITIPAN",
-        title: "Kuota Impor Khusus Rekanan Tertutup",
-        summary: "Tunjuk langsung importir tanpa lelang terbuka.",
-        tradeoffNote: "APBN -115T • DPR +10% • Audit -16% • Publik -6%",
+        title: "Kuota Impor Rekanan Tanpa Lelang",
+        tagLine: "APBN -120T • DPR +10% • AUDIT -17%",
         delta: {
-          budgetTrillion: -115,
+          budgetTrillion: -120,
           dprSupport: 10,
-          auditScore: -16,
+          auditScore: -17,
           publicTrust: -6,
         },
       },
     ],
   },
   {
-    id: "CR_DATA_DIGITAL",
-    ministryHint: "Kemenkomdigi & Layanan Publik",
-    headline: "Server Layanan Publik Tumbang & Isu Kebocoran Data",
-    context:
-      "Aplikasi layanan warga mengalami gangguan seharian dan potongan data diklaim beredar di forum daring.",
+    id: "CR_SERVER",
+    headline: "SERVER LAYANAN PUBLIK DOWN & DATA BOCOR!",
     cards: [
       {
         id: "C_DATA_1",
         alignment: "BERSIH",
-        title: "Audit Forensik Independen & Buka Laporan",
-        summary: "Libatkan auditor keamanan independen dan perbaiki sistem.",
-        tradeoffNote: "APBN -40T • Audit +11% • Publik +6%",
+        title: "Audit Forensik & Buka Laporan",
+        tagLine: "APBN -40T • AUDIT +11% • PUBLIK +6%",
         delta: { budgetTrillion: -40, auditScore: 11, publicTrust: 6 },
       },
       {
         id: "C_DATA_2",
         alignment: "KOMPROMI",
-        title: "Bentuk Satgas Internal Lintas Kementerian",
-        summary: "Tangani pemulihan bertahap sambil meredam kegaduhan.",
-        tradeoffNote: "APBN -30T • DPR +5% • Publik +2%",
+        title: "Bentuk Satgas Lintas Kementerian",
+        tagLine: "APBN -30T • DPR +5% • PUBLIK +2%",
         delta: { budgetTrillion: -30, dprSupport: 5, publicTrust: 2 },
       },
       {
         id: "C_DATA_3",
         alignment: "TITIPAN",
-        title: "Proyek Pengadaan Cloud Darurat Mark-Up",
-        summary: "Anggarkan pengadaan perangkat baru berbiaya fantastis.",
-        tradeoffNote: "APBN -130T • DPR +8% • Audit -18% • Publik -7%",
+        title: "Proyek Cloud Darurat Mark-Up 300%",
+        tagLine: "APBN -135T • DPR +9% • AUDIT -18%",
         delta: {
-          budgetTrillion: -130,
-          dprSupport: 8,
+          budgetTrillion: -135,
+          dprSupport: 9,
           auditScore: -18,
           publicTrust: -7,
         },
@@ -145,25 +160,20 @@ export const CRISIS_DECK: CrisisScenario[] = [
   },
   {
     id: "CR_BANSOS",
-    ministryHint: "Kemensos & Pemerintah Daerah",
-    headline: "Temuan Data Ganda Penerima Bantuan Sosial",
-    context:
-      "Inspektorat menemukan jutaan data penerima bansos belum mutakhir menjelang pencairan tahap berikutnya.",
+    headline: "TEMUAN DATA GANDA PENERIMA BANSOS!",
     cards: [
       {
         id: "C_BANSOS_1",
         alignment: "BERSIH",
-        title: "Pemutakhiran NIK & Penyaluran Non-Tunai",
-        summary: "Verifikasi ulang data dan salurkan langsung ke rekening warga.",
-        tradeoffNote: "APBN -55T • Audit +12% • Publik +5%",
+        title: "Verifikasi NIK & Transfer Langsung",
+        tagLine: "APBN -55T • AUDIT +12% • PUBLIK +5%",
         delta: { budgetTrillion: -55, auditScore: 12, publicTrust: 5 },
       },
       {
         id: "C_BANSOS_2",
         alignment: "KOMPROMI",
-        title: "Cairkan Sebagian Sambil Verifikasi Pemda",
-        summary: "Jaga daya beli warga sekaligus menggandeng kepala daerah.",
-        tradeoffNote: "APBN -75T • Publik +7% • DPR +5% • Audit -4%",
+        title: "Cairkan Bertahap Bareng Pemda",
+        tagLine: "APBN -75T • PUBLIK +7% • AUDIT -4%",
         delta: {
           budgetTrillion: -75,
           publicTrust: 7,
@@ -174,9 +184,8 @@ export const CRISIS_DECK: CrisisScenario[] = [
       {
         id: "C_BANSOS_3",
         alignment: "TITIPAN",
-        title: "Paket Sembako Titipan Konstituen Koalisi",
-        summary: "Bagi-bagi paket pengadaan barang tanpa standar harga.",
-        tradeoffNote: "APBN -140T • DPR +12% • Audit -19% • Publik -4%",
+        title: "Paket Sembako Stiker Konstituen",
+        tagLine: "APBN -140T • DPR +12% • AUDIT -19%",
         delta: {
           budgetTrillion: -140,
           dprSupport: 12,
@@ -187,51 +196,41 @@ export const CRISIS_DECK: CrisisScenario[] = [
     ],
   },
   {
-    id: "CR_RUU_PARLEMEN",
-    ministryHint: "Kemenkum & Parlemen",
-    headline: "Pembahasan RUU Strategis Memicu Aksi Mahasiswa",
-    context:
-      "Draf aturan mendesak dikebut di parlemen. Koalisi ingin segera ketok palu, sementara gelombang protes meluas.",
+    id: "CR_RUU",
+    headline: "DEMO MAHASISWA TOLAK DRAF RUU KILAT!",
     cards: [
       {
         id: "C_RUU_1",
         alignment: "BERSIH",
-        title: "Tunda Pengesahan & Buka Uji Publik Transparan",
-        summary: "Tampung masukan akademisi dan hapus pasal bermasalah.",
-        tradeoffNote: "Publik +11% • Audit +7% • DPR -8%",
+        title: "Tunda Ketok Palu & Buka Uji Publik",
+        tagLine: "PUBLIK +11% • AUDIT +7% • DPR -8%",
         delta: { publicTrust: 11, auditScore: 7, dprSupport: -8 },
       },
       {
         id: "C_RUU_2",
         alignment: "KOMPROMI",
-        title: "Revisi Terbatas & Kompromi Lintas Fraksi",
-        summary: "Pangkas poin paling sensitif agar kedua sisi mereda.",
-        tradeoffNote: "Publik +4% • DPR +5% • Audit +2%",
+        title: "Pangkas Pasal Karet & Lobi Fraksi",
+        tagLine: "PUBLIK +4% • DPR +5% • AUDIT +2%",
         delta: { publicTrust: 4, dprSupport: 5, auditScore: 2 },
       },
       {
         id: "C_RUU_3",
         alignment: "TITIPAN",
-        title: "Ketok Palu Dini Hari dengan Pasal Titipan",
-        summary: "Sahkan diam-diam beserta klausul kelonggaran izin usaha.",
-        tradeoffNote: "DPR +14% • Publik -14% • Audit -15%",
-        delta: { dprSupport: 14, publicTrust: -14, auditScore: -15 },
+        title: "Sahkan Dini Hari + Pasal Selundupan",
+        tagLine: "DPR +14% • PUBLIK -14% • AUDIT -16%",
+        delta: { dprSupport: 14, publicTrust: -14, auditScore: -16 },
       },
     ],
   },
   {
-    id: "CR_TRANSISI_APBN",
-    ministryHint: "Istana & Lintas Kementerian",
-    headline: "Laporan Akhir Periode & Proyek Strategis Nasional",
-    context:
-      "Tahun penentuan masa jabatan. Publik, auditor, dan parlemen menilai kesehatan APBN serta kebersihan warisan kabinet.",
+    id: "CR_AKHIR",
+    headline: "TUTUP BUKU AKHIR MASA JABATAN!",
     cards: [
       {
         id: "C_END_1",
         alignment: "BERSIH",
-        title: "Efisiensi Seremoni & Tutup Buku WTP Penuh",
-        summary: "Pangkas belanja rapat luar kota dan amankan saldo APBN.",
-        tradeoffNote: "APBN +60T • Audit +12% • Publik +6% • DPR -5%",
+        title: "Pangkas Rapat Hotel & Tutup WTP",
+        tagLine: "APBN +60T • AUDIT +12% • DPR -5%",
         delta: {
           budgetTrillion: 60,
           auditScore: 12,
@@ -242,17 +241,15 @@ export const CRISIS_DECK: CrisisScenario[] = [
       {
         id: "C_END_2",
         alignment: "KOMPROMI",
-        title: "Percepatan Layanan Kesehatan & Transportasi",
-        summary: "Selesaikan fasilitas dasar yang langsung dipakai warga.",
-        tradeoffNote: "APBN -65T • Publik +9% • DPR +4%",
+        title: "Tuntaskan Puskesmas & Angkutan",
+        tagLine: "APBN -65T • PUBLIK +9% • DPR +4%",
         delta: { budgetTrillion: -65, publicTrust: 9, dprSupport: 4 },
       },
       {
         id: "C_END_3",
         alignment: "TITIPAN",
-        title: "Pencairan Proyek Mercusuar Akhir Jabatan",
-        summary: "Kuras sisa kas negara untuk proyek kontrak jangka panjang.",
-        tradeoffNote: "APBN -150T • DPR +11% • Audit -18% • Publik -6%",
+        title: "Cairkan Proyek Mercusuar Akhir Tahun",
+        tagLine: "APBN -150T • DPR +11% • AUDIT -18%",
         delta: {
           budgetTrillion: -150,
           dprSupport: 11,
@@ -264,8 +261,36 @@ export const CRISIS_DECK: CrisisScenario[] = [
   },
 ];
 
+const BANTER_BERSIH = [
+  "Nah gitu dong, transparan!",
+  "Aman buat laporan BPK!",
+  "Rakyat tepuk tangan ini.",
+  "Sesuai SOP, lanjut!",
+  "Dompet negara terselamatkan.",
+];
+
+const BANTER_TITIPAN = [
+  "Waduh, siapa nyelipin ini?!",
+  "Cuma oknum ini mah...",
+  "Kok angkanya bengkak ya?",
+  "Bukan saya yang tanda tangan!",
+  "Sstt, yang penting fraksi aman.",
+];
+
+const BANTER_IDLE = [
+  "Kopi mana kopi...",
+  "Siap laksanakan!",
+  "Pantau terus medsos.",
+  "Jangan sampai kena OTT.",
+  "Koalisi solid (katanya).",
+];
+
 function clampPercent(val: number): number {
   return Math.max(0, Math.min(100, Math.round(val)));
+}
+
+function randomFrom<T>(arr: T[]): T {
+  return arr[Math.floor(Math.random() * arr.length)];
 }
 
 export function applyMetricsDelta(
@@ -307,7 +332,6 @@ export function createPlengerGame(params: {
   const humanCount =
     params.mode === "SOLO" ? 1 : Math.min(8, Math.max(2, cleanHumans.length));
 
-  // Tentukan urutan jabatan 8 kursi
   let orderedRoles = [...CABINET_ROLES];
   if (params.mode === "SOLO" && params.soloPreferredRole) {
     const chosen = CABINET_ROLES.find(
@@ -323,7 +347,6 @@ export function createPlengerGame(params: {
     orderedRoles = shuffleArray(CABINET_ROLES);
   }
 
-  // Pembagian Faksi Rahasia: 5 Reformis vs 3 Oportunis
   const factionPool: FactionType[] = shuffleArray([
     "REFORMIS",
     "REFORMIS",
@@ -340,8 +363,7 @@ export function createPlengerGame(params: {
     params.soloPreferredFaction &&
     params.soloPreferredFaction !== "RANDOM"
   ) {
-    const targetFaction = params.soloPreferredFaction;
-    const idx = factionPool.indexOf(targetFaction);
+    const idx = factionPool.indexOf(params.soloPreferredFaction);
     if (idx > 0) {
       [factionPool[0], factionPool[idx]] = [factionPool[idx], factionPool[0]];
     }
@@ -351,13 +373,21 @@ export function createPlengerGame(params: {
     const isHuman = idx < humanCount;
     return {
       id: `seat_${role.roleId}`,
-      name: isHuman ? cleanHumans[idx] || `Pemain ${idx + 1}` : role.botDefaultName,
+      name: isHuman
+        ? cleanHumans[idx] || `Pemain ${idx + 1}`
+        : role.botDefaultName,
       roleId: role.roleId,
+      shortTitle: role.shortTitle,
       roleTitle: role.roleTitle,
+      suitColor: role.suitColor,
+      hasGlasses: role.hasGlasses,
+      hasMustache: role.hasMustache,
       isHuman,
       faction: factionPool[idx],
       eliminated: false,
       suspicion: 20,
+      mood: "NORMAL",
+      chatter: randomFrom(BANTER_IDLE),
     };
   });
 
@@ -368,7 +398,7 @@ export function createPlengerGame(params: {
 
   const initialState: PlengerGameState = {
     mode: params.mode,
-    cabinetName: params.cabinetName.trim() || "Kabinet Plenger Nusantara",
+    cabinetName: params.cabinetName.trim() || "KABINET PLENGER",
     year: 1,
     maxYears: 5,
     phase: params.mode === "MULTIPLAYER" ? "ROLE_REVEAL" : "SELECT_EXECUTOR",
@@ -389,19 +419,12 @@ export function createPlengerGame(params: {
     lastEnactedCard: null,
     activeHumanIndex: 0,
     privacyCurtainOpen: false,
+    tickerText: `THN 1 • ${firstCrisis.headline}`,
+    lastStamp: null,
     winnerFaction: null,
     endReason: "",
-    logs: [
-      {
-        id: "log_start",
-        year: 1,
-        tag: "SIDANG" as const,
-        text: `${params.cabinetName.trim() || "Kabinet Plenger"} dilantik! 5 Reformis dan 3 Oportunis duduk di meja sidang.`,
-      },
-    ],
   };
 
-  // Jika mode SOLO dan Presiden adalah AI, langsung jalankan langkah AI Presiden
   if (params.mode === "SOLO" && !presidentSeat.isHuman) {
     return runAiPresidentTurn(initialState);
   }
@@ -424,21 +447,17 @@ export function runAiPresidentTurn(state: PlengerGameState): PlengerGameState {
       ? eligible
       : state.seats.filter((s) => !s.eliminated && s.id !== pres.id);
 
-  // Presiden AI cenderung memilih rekan sefaksi atau pemain manusia agar seru
   const humanCandidate = candidates.find((c) => c.isHuman);
   const allyCandidate = candidates.find((c) => c.faction === pres.faction);
   const pickedExecutor =
     humanCandidate ?? allyCandidate ?? candidates[0];
 
-  // Presiden AI membuang 1 kartu yang paling bertentangan dengan faksinya
   const sorted = [...state.drawnCards].sort((a, b) => {
     if (pres.faction === "OPORTUNIS") {
-      // Oportunis mempertahankan TITIPAN, membuang BERSIH
       const score = (c: PolicyCard) =>
         c.alignment === "TITIPAN" ? 3 : c.alignment === "KOMPROMI" ? 2 : 1;
       return score(b) - score(a);
     } else {
-      // Reformis mempertahankan BERSIH, membuang TITIPAN
       const score = (c: PolicyCard) =>
         c.alignment === "BERSIH" ? 3 : c.alignment === "KOMPROMI" ? 2 : 1;
       return score(b) - score(a);
@@ -447,24 +466,32 @@ export function runAiPresidentTurn(state: PlengerGameState): PlengerGameState {
 
   const passedTwo = sorted.slice(0, 2);
 
+  const updatedSeats = state.seats.map((s) => {
+    if (s.id === pres.id) {
+      return {
+        ...s,
+        chatter: `${pickedExecutor.shortTitle}, tolong beresin berkas ini!`,
+      };
+    }
+    if (s.id === pickedExecutor.id) {
+      return {
+        ...s,
+        chatter: "Siap Bos, saya cek dulu isinya!",
+      };
+    }
+    return s;
+  });
+
   const nextState: PlengerGameState = {
     ...state,
+    seats: updatedSeats,
     executorSeatId: pickedExecutor.id,
     passedCards: passedTwo,
     phase: "MINISTER_ENACT",
     privacyCurtainOpen: false,
-    logs: [
-      {
-        id: `exec_${Date.now()}`,
-        year: state.year,
-        tag: "SIDANG" as const,
-        text: `Presiden ${pres.name} menunjuk ${pickedExecutor.roleTitle} (${pickedExecutor.name}) mengeksekusi berkas krisis.`,
-      },
-      ...state.logs,
-    ].slice(0, 30),
+    tickerText: `Presiden menunjuk ${pickedExecutor.shortTitle} (${pickedExecutor.name})`,
   };
 
-  // Jika Menteri Pelaksana juga AI, langsung eksekusi kartu
   if (!pickedExecutor.isHuman) {
     return runAiMinisterEnact(nextState);
   }
@@ -484,21 +511,30 @@ export function selectExecutorAndDiscard(
   const remaining = state.drawnCards.filter((c) => c.id !== discardCardId);
   const passedTwo = remaining.slice(0, 2);
 
+  const updatedSeats = state.seats.map((s) => {
+    if (s.id === pres.id) {
+      return {
+        ...s,
+        chatter: `${exec.shortTitle}, lanjutkan 2 draf ini!`,
+      };
+    }
+    if (s.id === exec.id) {
+      return {
+        ...s,
+        chatter: "Siap, berkas diterima!",
+      };
+    }
+    return s;
+  });
+
   const nextState: PlengerGameState = {
     ...state,
+    seats: updatedSeats,
     executorSeatId: exec.id,
     passedCards: passedTwo,
     phase: "MINISTER_ENACT",
     privacyCurtainOpen: false,
-    logs: [
-      {
-        id: `exec_${Date.now()}`,
-        year: state.year,
-        tag: "SIDANG" as const,
-        text: `Presiden ${pres.name} menyerahkan 2 berkas rahasia kepada ${exec.roleTitle} (${exec.name}).`,
-      },
-      ...state.logs,
-    ].slice(0, 30),
+    tickerText: `${exec.shortTitle} (${exec.name}) sedang meninjau berkas...`,
   };
 
   if (!exec.isHuman) {
@@ -538,33 +574,71 @@ export function enactPolicyCard(
   if (!exec || !pres || !chosen) return state;
 
   const nextMetrics = applyMetricsDelta(state.metrics, chosen.delta);
+  const isTitipan = chosen.alignment === "TITIPAN";
 
-  // Update kecurigaan AI jika kebijakan TITIPAN disahkan
-  const updatedSeats = state.seats.map((s) => {
-    if (s.id === exec.id || s.id === pres.id) {
-      const susDelta =
-        chosen.alignment === "TITIPAN"
-          ? 28
-          : chosen.alignment === "BERSIH"
-          ? -15
-          : 0;
-      return {
-        ...s,
-        suspicion: clampPercent(s.suspicion + susDelta),
-        voteChoice: undefined,
-      };
+  const updatedSeats: CabinetSeat[] = state.seats.map((s) => {
+    if (s.eliminated) return s;
+
+    const isInvolved = s.id === exec.id || s.id === pres.id;
+    const susDelta = isInvolved
+      ? isTitipan
+        ? 30
+        : chosen.alignment === "BERSIH"
+        ? -15
+        : 0
+      : 0;
+    const nextSuspicion = clampPercent(s.suspicion + susDelta);
+
+    let nextMood: AvatarMood = "NORMAL";
+    if (isTitipan && isInvolved) {
+      nextMood = s.faction === "OPORTUNIS" ? "SMIRK" : "SWEAT";
+    } else if (isTitipan) {
+      nextMood = "SHOCK";
+    } else if (nextSuspicion >= 50) {
+      nextMood = "SWEAT";
     }
-    return { ...s, voteChoice: undefined };
+
+    let nextChatter = s.chatter;
+    if (s.id === exec.id) {
+      nextChatter = isTitipan
+        ? "Lho, itu draf dari atas kok!"
+        : "Sudah saya ketok palu!";
+    } else if (s.id === pres.id) {
+      nextChatter = isTitipan
+        ? "Waduh, kok yang itu lolos?!"
+        : "Kerja bagus, lanjut!";
+    } else {
+      nextChatter = isTitipan
+        ? randomFrom(BANTER_TITIPAN)
+        : randomFrom(BANTER_BERSIH);
+    }
+
+    return {
+      ...s,
+      suspicion: nextSuspicion,
+      mood: nextMood,
+      chatter: nextChatter,
+      voteChoice: undefined,
+    };
   });
 
-  const enactLog: LogEntry = {
-    id: `pol_${Date.now()}`,
-    year: state.year,
-    tag: "KEBIJAKAN" as const,
-    text: `[${chosen.alignment}] ${exec.roleTitle} (${exec.name}) mengesahkan "${chosen.title}" (${chosen.tradeoffNote}).`,
+  const stamp = {
+    id: Date.now(),
+    text:
+      chosen.alignment === "TITIPAN"
+        ? "PASAL TITIPAN!"
+        : chosen.alignment === "BERSIH"
+        ? "SAH & BERSIH"
+        : "KOMPROMI SAH",
+    color:
+      chosen.alignment === "TITIPAN"
+        ? "#ef4444"
+        : chosen.alignment === "BERSIH"
+        ? "#10b981"
+        : "#3b82f6",
+    subtext: chosen.tagLine,
   };
 
-  // Cek kondisi menang/kalah seketika setelah kebijakan disahkan
   const immediateEnd = evaluateEndConditions(
     nextMetrics,
     updatedSeats,
@@ -581,22 +655,13 @@ export function enactPolicyCard(
       lastEnactedCard: chosen,
       lastExecutorSeatId: exec.id,
       phase: "ENDED",
+      lastStamp: stamp,
       winnerFaction: immediateEnd.winner,
       endReason: immediateEnd.reason,
-      logs: [
-        {
-          id: `end_${Date.now()}`,
-          year: state.year,
-          tag: "HASIL" as const,
-          text: immediateEnd.reason,
-        },
-        enactLog,
-        ...state.logs,
-      ].slice(0, 30),
+      tickerText: immediateEnd.reason,
     };
   }
 
-  // Siapkan giliran voting manusia pertama untuk tahap DEBATE_VOTE
   const activeHumans = updatedSeats.filter((s) => s.isHuman && !s.eliminated);
 
   return {
@@ -608,14 +673,15 @@ export function enactPolicyCard(
     phase: "DEBATE_VOTE",
     activeHumanIndex: 0,
     privacyCurtainOpen: activeHumans.length <= 1,
-    logs: [enactLog, ...state.logs].slice(0, 30),
+    lastStamp: stamp,
+    tickerText: `${exec.shortTitle} mengesahkan: "${chosen.title}"`,
   };
 }
 
 export function castDebateVote(
   state: PlengerGameState,
   voterSeatId: string,
-  voteChoice: string // "AMAN" atau "RESHUFFLE:<seatId>"
+  voteChoice: string
 ): PlengerGameState {
   const updatedSeats = state.seats.map((s) =>
     s.id === voterSeatId ? { ...s, voteChoice } : s
@@ -633,7 +699,6 @@ export function castDebateVote(
     };
   }
 
-  // Semua manusia sudah vote -> Bot AI ikut vote lalu hitung hasil sidang!
   return resolveDebateAndAdvanceYear({
     ...state,
     seats: updatedSeats,
@@ -643,7 +708,6 @@ export function castDebateVote(
 function resolveDebateAndAdvanceYear(
   state: PlengerGameState
 ): PlengerGameState {
-  // Bot menentukan suara berdasarkan kecurigaan & faksi
   const seatsWithAiVotes = state.seats.map((s) => {
     if (s.eliminated || s.isHuman) return s;
 
@@ -663,7 +727,6 @@ function resolveDebateAndAdvanceYear(
       }
       return { ...s, voteChoice: "AMAN" };
     } else {
-      // Bot Oportunis mencoba mengkambinghitamkan Reformis jika kecurigaan tinggi
       const reformisTarget = suspects.find((t) => t.faction === "REFORMIS");
       if (
         state.lastEnactedCard?.alignment === "TITIPAN" &&
@@ -676,7 +739,6 @@ function resolveDebateAndAdvanceYear(
     }
   });
 
-  // Hitung suara reshuffle
   const tally: Record<string, number> = {};
   let amanCount = 0;
 
@@ -702,40 +764,39 @@ function resolveDebateAndAdvanceYear(
 
   let nextSeats = [...seatsWithAiVotes];
   let nextMetrics = { ...state.metrics };
-  const newLogs: LogEntry[] = [];
+  let roundHeadline = "Formasi kabinet bertahan tanpa reshuffle.";
+  let stamp = state.lastStamp;
 
-  // Reshuffle terjadi jika suara reshuffle minimal 3 dan lebih besar dari suara AMAN
   if (topTargetId && topTargetVotes >= 3 && topTargetVotes > amanCount) {
     const ousted = nextSeats.find((s) => s.id === topTargetId);
     if (ousted) {
       nextSeats = nextSeats.map((s) =>
-        s.id === ousted.id ? { ...s, eliminated: true } : s
+        s.id === ousted.id
+          ? {
+              ...s,
+              eliminated: true,
+              mood: "SHOCK",
+              chatter: "Lho kok saya yang dicopot?!",
+            }
+          : s
       );
 
-      // Reshuffle mengguncang koalisi DPR, tapi jika yang dipecat OPORTUNIS, audit & publik naik!
       nextMetrics = applyMetricsDelta(nextMetrics, {
         dprSupport: -7,
         publicTrust: ousted.faction === "OPORTUNIS" ? 8 : -6,
         auditScore: ousted.faction === "OPORTUNIS" ? 9 : -4,
       });
 
-      newLogs.push({
-        id: `reshuffle_${Date.now()}`,
-        year: state.year,
-        tag: "RESHUFFLE" as const,
-        text: `RESHUFFLE! ${ousted.roleTitle} (${ousted.name}) dicopot (${topTargetVotes} suara). Terungkap dia adalah kubu ${ousted.faction}!`,
-      });
+      roundHeadline = `RESHUFFLE! ${ousted.shortTitle} (${ousted.name}) dicopot — Ternyata ${ousted.faction}!`;
+      stamp = {
+        id: Date.now() + 1,
+        text: "DI-RESHUFFLE!",
+        color: "#f59e0b",
+        subtext: `${ousted.shortTitle} TERNYATA ${ousted.faction}`,
+      };
     }
-  } else {
-    newLogs.push({
-      id: `aman_${Date.now()}`,
-      year: state.year,
-      tag: "SIDANG" as const,
-      text: `Sidang Tahun ke-${state.year} ditutup tanpa reshuffle (${amanCount} suara mempertahankan formasi).`,
-    });
   }
 
-  // Cek kondisi menang/kalah setelah voting & potensi akhir Tahun ke-5
   const isFinalYear = state.year >= state.maxYears;
   const endCheck = evaluateEndConditions(
     nextMetrics,
@@ -751,22 +812,13 @@ function resolveDebateAndAdvanceYear(
       metrics: nextMetrics,
       seats: nextSeats,
       phase: "ENDED",
+      lastStamp: stamp,
       winnerFaction: endCheck.winner,
       endReason: endCheck.reason,
-      logs: [
-        {
-          id: `finish_${Date.now()}`,
-          year: state.year,
-          tag: "HASIL" as const,
-          text: endCheck.reason,
-        },
-        ...newLogs,
-        ...state.logs,
-      ].slice(0, 30),
+      tickerText: endCheck.reason,
     };
   }
 
-  // Lanjut ke Tahun Berikutnya
   const nextYear = state.year + 1;
   const unused = CRISIS_DECK.filter(
     (c) => !state.usedCrisisIds.includes(c.id)
@@ -788,16 +840,8 @@ function resolveDebateAndAdvanceYear(
     lastEnactedCard: null,
     phase: "SELECT_EXECUTOR",
     privacyCurtainOpen: false,
-    logs: [
-      {
-        id: `yr_${Date.now()}`,
-        year: nextYear,
-        tag: "SIDANG" as const,
-        text: `Memasuki Tahun ke-${nextYear}: Krisis baru — "${nextCrisis.headline}".`,
-      },
-      ...newLogs,
-      ...state.logs,
-    ].slice(0, 30),
+    lastStamp: stamp,
+    tickerText: `${roundHeadline} • THN ${nextYear}: ${nextCrisis.headline}`,
   };
 
   const pres = advancedState.seats.find(
@@ -824,51 +868,48 @@ function evaluateEndConditions(
     (s) => !s.eliminated && s.faction === "REFORMIS"
   ).length;
 
-  // 1. Semua Oportunis berhasil dibersihkan -> Reformis Menang!
   if (activeOportunis === 0) {
     return {
       winner: "REFORMIS",
       reason:
-        "KUBU REFORMIS MENANG! Seluruh penyusup Oportunis berhasil terdeteksi dan di-reshuffle dari Kabinet Plenger.",
+        "REFORMIS MENANG! Semua penyusup Plenger berhasil di-reshuffle!",
     };
   }
 
-  // 2. Audit anjlok atau APBN terkuras -> Oportunis Menang!
   if (metrics.auditScore <= 15) {
     return {
       winner: "OPORTUNIS",
       reason:
-        "KUBU OPORTUNIS (PLENGER) MENANG! Skor Audit jatuh di bawah 15% akibat banjir proyek dan pasal titipan.",
+        "PLENGER MENANG! Skor Audit ambruk di bawah 15% akibat banjir pasal titipan!",
     };
   }
+
   if (metrics.budgetTrillion <= 50) {
     return {
       winner: "OPORTUNIS",
       reason:
-        "KUBU OPORTUNIS (PLENGER) MENANG! Kas APBN terkuras habis hingga sisa Rp 50T tanpa kendali.",
+        "PLENGER MENANG! Kas APBN terkuras habis hingga Rp 50T!",
     };
   }
 
-  // 3. Rakyat atau DPR tumbang di tengah jalan -> Pemerintahan Runtuh!
   if (metrics.publicTrust <= 10 || metrics.dprSupport <= 10) {
     return {
       winner: "NONE",
       reason:
-        "KABINET TUMBANG! Kepercayaan publik atau dukungan DPR menyentuh titik nol sebelum masa jabatan selesai.",
+        "KABINET TUMBANG! Rakyat atau DPR mosi tidak percaya di tengah jalan!",
     };
   }
 
-  // 4. Evaluasi Akhir Tahun ke-5
   if (isEndOfYear && year >= maxYears) {
     if (activeOportunis >= activeReformis) {
       return {
         winner: "OPORTUNIS",
-        reason: `KUBU OPORTUNIS (PLENGER) MENANG DI AKHIR PERIODE! Kubu titipan menguasai mayoritas kursi kabinet (${activeOportunis} vs ${activeReformis}).`,
+        reason: `PLENGER MENANG! Kubu titipan menguasai meja kabinet (${activeOportunis} vs ${activeReformis})!`,
       };
     }
     return {
       winner: "REFORMIS",
-      reason: `KUBU REFORMIS MENANG! Kabinet Plenger bertahan 5 tahun dengan APBN Rp ${metrics.budgetTrillion}T, Publik ${metrics.publicTrust}%, DPR ${metrics.dprSupport}%, dan Audit ${metrics.auditScore}%.`,
+      reason: `REFORMIS MENANG! Kabinet bertahan 5 tahun dengan Audit ${metrics.auditScore}% & APBN Rp ${metrics.budgetTrillion}T!`,
     };
   }
 
