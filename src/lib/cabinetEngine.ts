@@ -14,6 +14,7 @@ export const ROLE_CATALOG: {
   roleId: RoleId;
   roleTitle: string;
   defaultOrigin: OriginType;
+  suitColor: string;
   sectorTaskTitle: string;
   sectorTaskDesc: string;
   sectorCostTrillion: number;
@@ -23,9 +24,10 @@ export const ROLE_CATALOG: {
     roleId: "PRESIDEN",
     roleTitle: "Presiden Republik",
     defaultOrigin: "PARTAI",
-    sectorTaskTitle: "Konsolidasi Pimpinan Koalisi & Arahan Istana",
+    suitColor: "#dc2626",
+    sectorTaskTitle: "Konsolidasi Koalisi & Arahan Istana",
     sectorTaskDesc:
-      "Menyatukan sikap fraksi koalisi dan meredam friksi antar-kementerian sebelum rapat kabinet.",
+      "Menyatukan sikap fraksi koalisi dan meredam friksi antar-kementerian.",
     sectorCostTrillion: 40,
     sectorDelta: { dprSupport: 8, publicTrust: 4 },
   },
@@ -33,9 +35,10 @@ export const ROLE_CATALOG: {
     roleId: "MENKEU",
     roleTitle: "Menteri Keuangan",
     defaultOrigin: "TEKNOKRAT",
+    suitColor: "#1d4ed8",
     sectorTaskTitle: "Penyesuaian Belanja & Insentif Fiskal",
     sectorTaskDesc:
-      "Menjaga napas kas negara dan meredam gejolak biaya hidup lewat penataan pos anggaran.",
+      "Menjaga napas kas negara dan meredam gejolak biaya hidup lewat penataan APBN.",
     sectorCostTrillion: 30,
     sectorDelta: { budgetTrillion: 80, economicStability: 6, auditScore: 4 },
   },
@@ -43,9 +46,10 @@ export const ROLE_CATALOG: {
     roleId: "MENDAGRI",
     roleTitle: "Menteri Dalam Negeri",
     defaultOrigin: "PARTAI",
+    suitColor: "#b45309",
     sectorTaskTitle: "Sinkronisasi Kepala Daerah & Kamtibmas",
     sectorTaskDesc:
-      "Mengkoordinasikan gubernur/bupati dan mengawal stabilitas daerah agar tidak meluas.",
+      "Mengkoordinasikan gubernur dan bupati agar stabilitas daerah terjaga.",
     sectorCostTrillion: 35,
     sectorDelta: { publicTrust: 6, dprSupport: 5, economicStability: 3 },
   },
@@ -53,9 +57,10 @@ export const ROLE_CATALOG: {
     roleId: "MENKOMDIGI",
     roleTitle: "Menteri Komunikasi & Digital",
     defaultOrigin: "PENGUSAHA",
-    sectorTaskTitle: "Klarifikasi Publik & Keamanan Layanan Digital",
+    suitColor: "#0f766e",
+    sectorTaskTitle: "Klarifikasi Publik & Keamanan Digital",
     sectorTaskDesc:
-      "Menjawab hoaks yang viral di medsos dan menjaga keandalan sistem data layanan publik.",
+      "Menjawab hoaks yang viral di medsos dan menjaga layanan data publik.",
     sectorCostTrillion: 25,
     sectorDelta: { publicTrust: 7, auditScore: 3 },
   },
@@ -63,9 +68,10 @@ export const ROLE_CATALOG: {
     roleId: "MENSOS",
     roleTitle: "Menteri Sosial",
     defaultOrigin: "PARTAI",
+    suitColor: "#be123c",
     sectorTaskTitle: "Penyaluran Bantuan Sosial Tepat Sasaran",
     sectorTaskDesc:
-      "Menahan tekanan daya beli warga rentan, sembari diawasi akurasi data penerima.",
+      "Menahan tekanan daya beli warga rentan, sembari diawasi akurasi data.",
     sectorCostTrillion: 70,
     sectorDelta: { publicTrust: 11, dprSupport: 4, auditScore: -4 },
   },
@@ -73,9 +79,10 @@ export const ROLE_CATALOG: {
     roleId: "MENHUB",
     roleTitle: "Menteri Perhubungan",
     defaultOrigin: "TEKNOKRAT",
+    suitColor: "#0369a1",
     sectorTaskTitle: "Kelancaran Logistik & Angkutan Publik",
     sectorTaskDesc:
-      "Mengurai antrean pelabuhan dan menekan ongkos kirim bahan pokok antar-pulau.",
+      "Mengurai antrean pelabuhan dan menekan ongkos kirim bahan pokok.",
     sectorCostTrillion: 55,
     sectorDelta: { economicStability: 8, publicTrust: 4 },
   },
@@ -83,9 +90,10 @@ export const ROLE_CATALOG: {
     roleId: "MENKES",
     roleTitle: "Menteri Kesehatan",
     defaultOrigin: "TEKNOKRAT",
+    suitColor: "#15803d",
     sectorTaskTitle: "Penguatan Layanan Puskesmas & BPJS",
     sectorTaskDesc:
-      "Menjaga ketersediaan obat dan kelancaran klaim layanan kesehatan di daerah.",
+      "Menjaga ketersediaan obat dan kelancaran klaim layanan kesehatan.",
     sectorCostTrillion: 50,
     sectorDelta: { publicTrust: 8, auditScore: 3 },
   },
@@ -93,9 +101,10 @@ export const ROLE_CATALOG: {
     roleId: "MENHUKUM",
     roleTitle: "Menteri Hukum & Reformasi Birokrasi",
     defaultOrigin: "TEKNOKRAT",
+    suitColor: "#4338ca",
     sectorTaskTitle: "Pembenahan Regulasi & Pengawasan Internal",
     sectorTaskDesc:
-      "Merapikan tumpang tindih aturan dan memperketat kepatuhan administrasi anggaran.",
+      "Merapikan tumpang tindih aturan dan memperketat audit anggaran.",
     sectorCostTrillion: 25,
     sectorDelta: { auditScore: 10, economicStability: 3 },
   },
@@ -107,23 +116,79 @@ export const ORIGIN_INFO: Record<
 > = {
   TEKNOKRAT: {
     label: "Teknokrat",
-    note: "Mengutamakan hitungan fiskal, aturan, dan efisiensi sistem; rawan kurang populer secara politis.",
+    note: "Hemat anggaran & kuat di audit, namun perlu lobi ekstra di parlemen.",
     dprBonus: 0,
     budgetEfficiency: 0.85,
   },
   PARTAI: {
     label: "Kader Partai",
-    note: "Kuat di lobi DPR dan dukungan massa akar rumput; cenderung mendorong belanja populis.",
+    note: "Dukungan DPR tinggi sejak awal, cenderung mendorong belanja populis.",
     dprBonus: 8,
     budgetEfficiency: 1.0,
   },
   PENGUSAHA: {
     label: "Dunia Usaha",
-    note: "Cepat membaca sentimen pasar dan jejaring proyek; perlu diawasi agar tidak memicu konflik kepentingan.",
+    note: "Cepat membaca sentimen pasar, perlu menjaga transparansi pengadaan.",
     dprBonus: 4,
     budgetEfficiency: 0.95,
   },
 };
+
+export const WORLD_THEMES: {
+  worldCode: string;
+  stageName: string;
+  skyTop: string;
+  skyBottom: string;
+  groundTop: string;
+  groundBody: string;
+  enemyLabels: [string, string, string];
+}[] = [
+  {
+    worldCode: "1-1",
+    stageName: "PASAR INDUK & PANGAN",
+    skyTop: "#3b82f6",
+    skyBottom: "#93c5fd",
+    groundTop: "#16a34a",
+    groundBody: "#b45309",
+    enemyLabels: ["INFLASI", "SPEKULAN", "HOAKS"],
+  },
+  {
+    worldCode: "1-2",
+    stageName: "GEDUNG PARLEMEN & RUU",
+    skyTop: "#1e3a8a",
+    skyBottom: "#60a5fa",
+    groundTop: "#0d9488",
+    groundBody: "#78350f",
+    enemyLabels: ["DEADLOCK", "PASAL TITIPAN", "HOAKS"],
+  },
+  {
+    worldCode: "1-3",
+    stageName: "AUDIT BANSOS & DAERAH",
+    skyTop: "#0369a1",
+    skyBottom: "#7dd3fc",
+    groundTop: "#15803d",
+    groundBody: "#92400e",
+    enemyLabels: ["DATA GANDA", "MARKUP", "CALO"],
+  },
+  {
+    worldCode: "1-4",
+    stageName: "PASAR KEUANGAN & KURS",
+    skyTop: "#312e81",
+    skyBottom: "#818cf8",
+    groundTop: "#059669",
+    groundBody: "#713f12",
+    enemyLabels: ["CAPITAL OUTFLOW", "DEFISIT", "PANIK"],
+  },
+  {
+    worldCode: "1-5",
+    stageName: "ISTANA MERDEKA • AKHIR PERIODE",
+    skyTop: "#991b1b",
+    skyBottom: "#fca5a5",
+    groundTop: "#16a34a",
+    groundBody: "#78350f",
+    enemyLabels: ["KRISIS", "SKANDAL", "HOAKS"],
+  },
+];
 
 export const NATIONAL_ISSUES: NationalIssue[] = [
   {
@@ -131,14 +196,13 @@ export const NATIONAL_ISSUES: NationalIssue[] = [
     ministry: "Kemenkeu & Kemendag",
     title: "Harga Pangan & Energi Naik Menjelang Musim Panen",
     context:
-      "Harga beras, cabai, dan tarif distribusi merangkak naik. Media sosial ramai membandingkan harga di pasar induk dengan janji stabilitas.",
+      "Harga beras, cabai, dan ongkos angkut naik. Media sosial ramai membandingkan harga pasar dengan janji stabilitas.",
     options: [
       {
         id: "A",
         title: "Operasi Pasar & Subsidi Terarah",
-        summary: "Gelar pasar murah serentak dan tahan tarif dasar selama 6 bulan.",
-        realWorldTradeoff:
-          "Kas APBN tergerus, tetapi kepercayaan publik cepat pulih.",
+        summary: "Gelar pasar murah serentak dan tahan tarif dasar 6 bulan.",
+        realWorldTradeoff: "APBN tergerus (-120T), kepercayaan publik naik.",
         delta: {
           budgetTrillion: -120,
           publicTrust: 10,
@@ -149,9 +213,8 @@ export const NATIONAL_ISSUES: NationalIssue[] = [
       {
         id: "B",
         title: "Relaksasi Impor & Perbaikan Rantai Pasok",
-        summary: "Buka kuota impor komoditas tertentu dan percepat bongkar muat.",
-        realWorldTradeoff:
-          "Pasar lega, namun sebagian fraksi dan petani memprotes.",
+        summary: "Buka kuota impor komoditas tertentu dan percepat logistik.",
+        realWorldTradeoff: "Pasar stabil, sebagian fraksi dan petani protes.",
         delta: {
           budgetTrillion: -40,
           economicStability: 8,
@@ -163,8 +226,7 @@ export const NATIONAL_ISSUES: NationalIssue[] = [
         id: "C",
         title: "Jaga Defisit Ketat & Imbauan Hemat",
         summary: "Batasi belanja tambahan dan dorong kampanye belanja bijak.",
-        realWorldTradeoff:
-          "Anggaran aman, tapi tekanan biaya hidup warga masih terasa.",
+        realWorldTradeoff: "Kas APBN aman (+20T), tekanan biaya hidup terasa.",
         delta: {
           budgetTrillion: 20,
           publicTrust: -9,
@@ -179,15 +241,13 @@ export const NATIONAL_ISSUES: NationalIssue[] = [
     ministry: "Kemenkum & Parlemen",
     title: "Pembahasan RUU Strategis Memicu Protes Mahasiswa & Sipil",
     context:
-      "Draf aturan mendesak dikebut di parlemen. Sebagian fraksi mendesak segera disahkan, sementara kelompok masyarakat sipil turun ke jalan.",
+      "Draf aturan mendesak dikebut di parlemen. Fraksi koalisi mendesak pengesahan, sementara masyarakat sipil turun ke jalan.",
     options: [
       {
         id: "A",
         title: "Tunda Pengesahan & Buka Uji Publik",
-        summary:
-          "Tarik draf sementara untuk menampung masukan akademisi dan publik.",
-        realWorldTradeoff:
-          "Merendam gelombang protes, namun membuat fraksi koalisi kesal.",
+        summary: "Tarik draf sementara untuk menampung masukan publik.",
+        realWorldTradeoff: "Meredam aksi jalanan, fraksi koalisi kesal.",
         delta: {
           publicTrust: 9,
           dprSupport: -9,
@@ -197,10 +257,8 @@ export const NATIONAL_ISSUES: NationalIssue[] = [
       {
         id: "B",
         title: "Sahkan dengan Catatan Revisi Bertahap",
-        summary:
-          "Ketok palu sesuai jadwal koalisi sambil menjanjikan aturan turunan.",
-        realWorldTradeoff:
-          "Soliditas koalisi terjaga, tapi kritik publik memanas.",
+        summary: "Ketok palu sesuai jadwal koalisi dengan aturan turunan.",
+        realWorldTradeoff: "Koalisi solid, kritik publik memanas.",
         delta: {
           dprSupport: 8,
           publicTrust: -11,
@@ -210,10 +268,8 @@ export const NATIONAL_ISSUES: NationalIssue[] = [
       {
         id: "C",
         title: "Pangkas Pasal Kontroversial & Kompromi Fraksi",
-        summary:
-          "Hapus poin paling sensitif agar kompromi bisa diterima dua sisi.",
-        realWorldTradeoff:
-          "Kompromi jalan di tengah, meski tidak memuaskan semua pihak.",
+        summary: "Hapus poin paling sensitif agar kompromi diterima dua sisi.",
+        realWorldTradeoff: "Kompromi jalan tengah dengan skor audit positif.",
         delta: {
           publicTrust: 4,
           dprSupport: 3,
@@ -227,15 +283,13 @@ export const NATIONAL_ISSUES: NationalIssue[] = [
     ministry: "Kemensos & Pengawasan",
     title: "Temuan Ganda Data Penerima Bantuan & Proyek Daerah",
     context:
-      "Laporan audit internal menyoroti data penerima bantuan yang belum mutakhir serta keterlambatan pertanggungjawaban beberapa proyek daerah.",
+      "Laporan audit internal menyoroti data penerima bansos yang belum mutakhir serta keterlambatan proyek daerah.",
     options: [
       {
         id: "A",
-        title: "Audit Menyeluruh & Pemutakhiran Data",
-        summary:
-          "Bekukan pencairan bermasalah sementara dan verifikasi ulang NIK.",
-        realWorldTradeoff:
-          "Skor tata kelola naik, tetapi sebagian penerima mengeluh telat cair.",
+        title: "Audit Menyeluruh & Pemutakhiran Data NIK",
+        summary: "Bekukan pencairan bermasalah dan verifikasi ulang data.",
+        realWorldTradeoff: "Skor audit melonjak (+12%), pencairan agak lambat.",
         delta: {
           auditScore: 12,
           publicTrust: -4,
@@ -245,10 +299,8 @@ export const NATIONAL_ISSUES: NationalIssue[] = [
       {
         id: "B",
         title: "Cairkan Dulu, Evaluasi Belakangan",
-        summary:
-          "Prioritaskan daya beli warga dulu dan audit menyusul akhir tahun.",
-        realWorldTradeoff:
-          "Warga puas, namun catatan audit memburuk dan rawan temuan.",
+        summary: "Prioritaskan daya beli warga dulu dan audit akhir tahun.",
+        realWorldTradeoff: "Warga puas, catatan audit turun (-11%).",
         delta: {
           publicTrust: 8,
           auditScore: -11,
@@ -258,9 +310,8 @@ export const NATIONAL_ISSUES: NationalIssue[] = [
       {
         id: "C",
         title: "Bentuk Satgas Lintas Kementerian",
-        summary:
-          "Libatkan inspektorat, pemda, dan auditor untuk merapikan sistem.",
-        realWorldTradeoff: "Langkah moderat dengan biaya koordinasi rutin.",
+        summary: "Libatkan inspektorat, pemda, dan auditor merapikan sistem.",
+        realWorldTradeoff: "Langkah moderat dengan biaya koordinasi.",
         delta: {
           auditScore: 6,
           publicTrust: 3,
@@ -275,14 +326,13 @@ export const NATIONAL_ISSUES: NationalIssue[] = [
     ministry: "Kemenkeu & Ekonomi",
     title: "Gejolak Nilai Tukar & Arus Modal Asing",
     context:
-      "Sentimen global membuat mata uang melemah tipis dan investor memantau arah kebijakan fiskal serta kepastian regulasi.",
+      "Sentimen global membuat kurs melemah tipis dan pelaku pasar memantau arah disiplin fiskal serta kepastian izin.",
     options: [
       {
         id: "A",
         title: "Paket Insentif Industri & Kepastian Izin",
         summary: "Pangkas hambatan perizinan dan beri kepastian iklim usaha.",
-        realWorldTradeoff:
-          "Kepercayaan pasar menguat, namun oposisi menyoroti insentif besar.",
+        realWorldTradeoff: "Pasar menguat (+10%), insentif memakan APBN.",
         delta: {
           economicStability: 10,
           budgetTrillion: -65,
@@ -291,11 +341,9 @@ export const NATIONAL_ISSUES: NationalIssue[] = [
       },
       {
         id: "B",
-        title: "Efisiensi Belanja Non-Prioritas",
-        summary:
-          "Pangkas perjalanan dinas, seremoni, dan rapat luar kota kabinet.",
-        realWorldTradeoff:
-          "Kas negara dan citra hemat membaik, tetapi menteri mengeluh.",
+        title: "Efisiensi Belanja Non-Prioritas Kabinet",
+        summary: "Pangkas perjalanan dinas, seremoni, dan rapat luar kota.",
+        realWorldTradeoff: "APBN hemat (+75T) & citra positif, menteri mengeluh.",
         delta: {
           budgetTrillion: 75,
           publicTrust: 6,
@@ -306,13 +354,55 @@ export const NATIONAL_ISSUES: NationalIssue[] = [
       {
         id: "C",
         title: "Stabilisasi Harga Kebutuhan Pokok",
-        summary:
-          "Fokus menjaga inflasi domestik agar daya beli tidak ikut tergerus.",
+        summary: "Fokus menjaga inflasi domestik agar daya beli terjaga.",
         realWorldTradeoff: "Stabil di dalam negeri, reaksi pasar moderat.",
         delta: {
           economicStability: 5,
           publicTrust: 5,
           budgetTrillion: -50,
+        },
+      },
+    ],
+  },
+  {
+    id: "ISS_WARISAN_AKHIR",
+    ministry: "Istana & Lintas Kementerian",
+    title: "Evaluasi Akhir Masa Jabatan & Transisi Anggaran",
+    context:
+      "Menjelang akhir periode 5 tahun, publik dan parlemen menilai warisan pembangunan serta kesehatan kas negara.",
+    options: [
+      {
+        id: "A",
+        title: "Tuntaskan Proyek Layanan Dasar Daerah",
+        summary: "Alokasikan sisa anggaran untuk puskesmas, sekolah, dan jalan.",
+        realWorldTradeoff: "Kepuasan publik tinggi (+12%), saldo APBN menipis.",
+        delta: {
+          budgetTrillion: -95,
+          publicTrust: 12,
+          economicStability: 5,
+        },
+      },
+      {
+        id: "B",
+        title: "Amankan Cadangan Fiskal & Audit Transisi",
+        summary: "Serahkan kas negara yang sehat dengan laporan WTP penuh.",
+        realWorldTradeoff: "Skor audit & pasar sangat kuat, kurang populis.",
+        delta: {
+          budgetTrillion: 45,
+          auditScore: 10,
+          economicStability: 8,
+          publicTrust: -3,
+        },
+      },
+      {
+        id: "C",
+        title: "Konsolidasi Lintas Fraksi & Rekonsiliasi",
+        summary: "Pastikan stabilitas politik nasional hingga serah terima.",
+        realWorldTradeoff: "Dukungan DPR solid, dampak ekonomi moderat.",
+        delta: {
+          dprSupport: 10,
+          publicTrust: 5,
+          auditScore: 3,
         },
       },
     ],
@@ -324,25 +414,25 @@ export const PUBLIC_SCANDALS: PublicScandal[] = [
     id: "SC_BOCOR_DATA",
     headline: "Dugaan Kebocoran Data Layanan Publik Viral di Medsos",
     detail:
-      "Potongan basis data diklaim beredar di forum daring. Publik menuntut kejelasan keamanan siber dan pertanggungjawaban instansi terkait.",
+      "Potongan basis data diklaim beredar daring. Warganet menuntut audit keamanan siber dan pertanggungjawaban.",
     severity: "TINGGI",
     responses: [
       {
         id: "A",
         label: "Buka Hasil Forensik & Ganti Pejabat Teknis",
-        note: "Publik melihat ketegasan, pasar merespons positif.",
+        note: "Publik melihat ketegasan (+6% Publik, +4% Pasar).",
         delta: { publicTrust: 6, economicStability: 4, dprSupport: -4 },
       },
       {
         id: "B",
         label: "Bantah Keras & Klaim Sistem Aman",
-        note: "Memicu perdebatan panjang di media sosial.",
+        note: "Memicu perdebatan panjang (-8% Publik, -6% Audit).",
         delta: { publicTrust: -8, auditScore: -6 },
       },
       {
         id: "C",
         label: "Audit Siber Mandiri & Anggaran Keamanan",
-        note: "Biaya tambahan keluar, tata kelola membaik.",
+        note: "Biaya -30T keluar, skor audit naik (+8%).",
         delta: { budgetTrillion: -30, auditScore: 8, publicTrust: 2 },
       },
     ],
@@ -351,53 +441,26 @@ export const PUBLIC_SCANDALS: PublicScandal[] = [
     id: "SC_MARKUP_PROYEK",
     headline: "Sorotan Selisih Harga Pengadaan Barang Pemerintah",
     detail:
-      "Warganet dan pengamat membandingkan spesifikasi pengadaan di daerah dengan harga pasar wajar sehingga memicu desakan audit.",
+      "Pengamat membandingkan spesifikasi pengadaan daerah dengan harga pasar wajar sehingga memicu desakan audit.",
     severity: "KRITIS",
     responses: [
       {
         id: "A",
         label: "Serahkan Berkas ke Auditor & Hentikan Kontrak",
-        note: "Skor audit melonjak, sebagian rekanan & fraksi tertekan.",
+        note: "Skor audit melonjak (+10%), sebagian rekanan tertekan.",
         delta: { auditScore: 10, dprSupport: -6, publicTrust: 4 },
       },
       {
         id: "B",
         label: "Revisi Harga Satuan Secara Diam-Diam",
-        note: "Kegaduhan mereda sesaat, tapi rawan bocor lagi.",
+        note: "Kegaduhan mereda sesaat, tapi rawan temuan (-9% Audit).",
         delta: { budgetTrillion: 25, auditScore: -9, publicTrust: -4 },
       },
       {
         id: "C",
         label: "Klarifikasi Terbuka & E-Katalog Ketat",
-        note: "Menjaga kepercayaan publik dengan biaya penataan.",
+        note: "Menjaga kepercayaan publik dengan biaya penataan (-20T).",
         delta: { budgetTrillion: -20, publicTrust: 5, auditScore: 5 },
-      },
-    ],
-  },
-  {
-    id: "SC_ANTREAN_LAYANAN",
-    headline: "Antrean Panjang & Keluhan Layanan Publik di Daerah",
-    detail:
-      "Video antrean panjang warga di loket layanan dan fasilitas kesehatan menyebar luas menjelang jam sibuk.",
-    severity: "TINGGI",
-    responses: [
-      {
-        id: "A",
-        label: "Inspeksi Mendadak & Tambah Loket Darurat",
-        note: "Sentimen warga membaik, kas terpakai untuk operasional.",
-        delta: { publicTrust: 7, budgetTrillion: -25 },
-      },
-      {
-        id: "B",
-        label: "Salurkan lewat Antrean Daring Bertahap",
-        note: "Mengurangi antrean fisik, butuh penyesuaian warga.",
-        delta: { economicStability: 4, publicTrust: 3, auditScore: 3 },
-      },
-      {
-        id: "C",
-        label: "Minta Pemda Menangani Sendiri",
-        note: "Pusat hemat anggaran, tapi warga merasa abai.",
-        delta: { publicTrust: -7, dprSupport: -3 },
       },
     ],
   },
@@ -465,10 +528,6 @@ function assignBotVotes(
   });
 }
 
-function pickScandalForYear(nextYear: number): PublicScandal {
-  return PUBLIC_SCANDALS[(nextYear - 1) % PUBLIC_SCANDALS.length];
-}
-
 export function createInitialSimulation(params: {
   countryName: string;
   presidentName: string;
@@ -496,29 +555,6 @@ export function createInitialSimulation(params: {
   const firstIssue = NATIONAL_ISSUES[0];
   const allMembers = assignBotVotes([playerMember, ...bots], firstIssue);
 
-  const startingMetrics: CabinetStateMetrics = {
-    budgetTrillion: 650,
-    publicTrust: 58,
-    dprSupport: Math.min(95, 55 + originMeta.dprBonus),
-    economicStability: 60,
-    auditScore: 62,
-  };
-
-  const initialFeed: FeedEntry[] = [
-    {
-      id: "feed_1",
-      year: 1,
-      tag: "SIDANG",
-      text: `Kabinet ${params.countryName.trim() || "Nusantara"} resmi bekerja. ${playerMember.name} menjabat sebagai ${roleMeta.roleTitle} (${originMeta.label}).`,
-    },
-    {
-      id: "feed_2",
-      year: 1,
-      tag: "BERITA",
-      text: `Agenda prioritas Tahun ke-1: "${firstIssue.title}".`,
-    },
-  ];
-
   return {
     countryName: params.countryName.trim() || "Republik Nusantara",
     presidentName:
@@ -530,13 +566,26 @@ export function createInitialSimulation(params: {
     status: "ACTIVE",
     endSummary: "",
     reshuffleDoneYear: 0,
-    activeScandal: null,
-    metrics: startingMetrics,
+    activeScandal: PUBLIC_SCANDALS[0],
+    metrics: {
+      budgetTrillion: 650,
+      publicTrust: 58,
+      dprSupport: Math.min(95, 55 + originMeta.dprBonus),
+      economicStability: 60,
+      auditScore: 62,
+    },
     currentIssue: firstIssue,
     usedIssueIds: [firstIssue.id],
     members: allMembers,
     playerId: playerMember.id,
-    feed: initialFeed,
+    feed: [
+      {
+        id: "feed_1",
+        year: 1,
+        tag: "SIDANG",
+        text: `World 1-1 dimulai: ${playerMember.name} bertugas sebagai ${roleMeta.roleTitle} (${originMeta.label}).`,
+      },
+    ],
   };
 }
 
@@ -554,23 +603,14 @@ export function resolvePublicScandal(
     id: `scandal_${Date.now()}`,
     year: state.year,
     tag: "SKANDAL",
-    text: `Respons isu "${state.activeScandal.headline}": ${chosen.label}.`,
+    text: `Blok Skandal "${state.activeScandal.headline}" dijawab: ${chosen.label}.`,
   };
-
-  const collapsed =
-    nextMetrics.publicTrust <= 10 ||
-    nextMetrics.dprSupport <= 10 ||
-    nextMetrics.economicStability <= 10;
 
   return {
     ...state,
     activeScandal: null,
     metrics: nextMetrics,
-    status: collapsed ? "ENDED" : state.status,
-    endSummary: collapsed
-      ? "Pemerintahan goyah akibat tekanan skandal publik dan melemahnya dukungan politik."
-      : state.endSummary,
-    feed: [entry, ...state.feed].slice(0, 35),
+    feed: [entry, ...state.feed].slice(0, 30),
   };
 }
 
@@ -602,14 +642,14 @@ export function runSectoralTask(
     id: `task_${Date.now()}`,
     year: state.year,
     tag: "SEKTORAL",
-    text: `${player.name} menjalankan "${roleMeta.sectorTaskTitle}" (Biaya efektif Rp ${realCost}T).`,
+    text: `Program "${roleMeta.sectorTaskTitle}" dijalankan (-Rp ${realCost}T).`,
   };
 
   return {
     ...state,
     metrics: nextMetrics,
     members: updatedMembers,
-    feed: [entry, ...state.feed].slice(0, 35),
+    feed: [entry, ...state.feed].slice(0, 30),
   };
 }
 
@@ -661,114 +701,14 @@ export function runLobbyAction(
     id: `lobby_${Date.now()}`,
     year: state.year,
     tag: "LOBI",
-    text: `Lobi politik dilakukan ke ${target.roleTitle} (dana taktis 15M); dukungan DPR naik namun skor audit sedikit tertekan.`,
+    text: `Lobi politik ke ${target.roleTitle} (15M); suara mengikuti opsi Anda.`,
   };
 
   return {
     ...state,
     metrics: nextMetrics,
     members: updatedMembers,
-    feed: [entry, ...state.feed].slice(0, 35),
-  };
-}
-
-export function closeYearAndAdvance(
-  state: GameSimulationState
-): GameSimulationState {
-  if (state.status !== "ACTIVE") return state;
-
-  const counts: Record<PolicyOptionId, number> = { A: 0, B: 0, C: 0 };
-  state.members.forEach((m) => {
-    const opt = m.votedOption ?? "A";
-    counts[opt] += 1;
-  });
-
-  const winningId: PolicyOptionId =
-    counts.B > counts.A && counts.B >= counts.C
-      ? "B"
-      : counts.C > counts.A && counts.C > counts.B
-      ? "C"
-      : "A";
-
-  const chosenOption =
-    state.currentIssue.options.find((o) => o.id === winningId) ??
-    state.currentIssue.options[0];
-
-  const nextMetrics = applyMetricsDelta(state.metrics, chosenOption.delta);
-
-  const decisionFeed: FeedEntry = {
-    id: `dec_${Date.now()}`,
-    year: state.year,
-    tag: "SIDANG",
-    text: `Tahun ke-${state.year}: Keputusan "${chosenOption.title}" disahkan (${counts.A}A / ${counts.B}B / ${counts.C}C).`,
-  };
-
-  const collapsed =
-    nextMetrics.publicTrust <= 10 ||
-    nextMetrics.dprSupport <= 10 ||
-    nextMetrics.economicStability <= 10;
-
-  if (collapsed) {
-    return {
-      ...state,
-      metrics: nextMetrics,
-      activeScandal: null,
-      status: "ENDED",
-      endSummary:
-        "Pemerintahan goyah di tengah jalan akibat tekanan politik, pasar, atau turunnya kepercayaan publik secara drastis.",
-      feed: [decisionFeed, ...state.feed].slice(0, 35),
-    };
-  }
-
-  if (state.year >= state.maxYears) {
-    return {
-      ...state,
-      metrics: nextMetrics,
-      activeScandal: null,
-      status: "ENDED",
-      endSummary: `Masa jabatan 5 tahun tuntas! Kas APBN tersisa Rp ${nextMetrics.budgetTrillion}T, kepercayaan publik ${nextMetrics.publicTrust}%, dukungan DPR ${nextMetrics.dprSupport}%, dan skor audit ${nextMetrics.auditScore}%.`,
-      feed: [decisionFeed, ...state.feed].slice(0, 35),
-    };
-  }
-
-  const nextYear = state.year + 1;
-  const unused = NATIONAL_ISSUES.filter(
-    (iss) => !state.usedIssueIds.includes(iss.id)
-  );
-  const nextIssue =
-    unused[0] ?? NATIONAL_ISSUES[(nextYear - 1) % NATIONAL_ISSUES.length];
-
-  const nextMembers = assignBotVotes(
-    state.members.map((m) => ({ ...m, votedOption: undefined })),
-    nextIssue
-  );
-
-  const shouldTriggerScandal =
-    nextYear % 2 === 0 ||
-    nextMetrics.auditScore < 50 ||
-    nextMetrics.publicTrust < 48;
-  const spawnedScandal = shouldTriggerScandal
-    ? pickScandalForYear(nextYear)
-    : null;
-
-  const nextYearFeed: FeedEntry = {
-    id: `yr_${Date.now()}`,
-    year: nextYear,
-    tag: spawnedScandal ? "SKANDAL" : "BERITA",
-    text: spawnedScandal
-      ? `ALERT PUBLIK Tahun ke-${nextYear}: ${spawnedScandal.headline}!`
-      : `Memasuki Tahun ke-${nextYear}: Isu baru muncul — "${nextIssue.title}".`,
-  };
-
-  return {
-    ...state,
-    year: nextYear,
-    metrics: nextMetrics,
-    activeScandal: spawnedScandal,
-    currentIssue: nextIssue,
-    usedIssueIds: [...state.usedIssueIds, nextIssue.id],
-    members: nextMembers,
-    feed: [nextYearFeed, decisionFeed, ...state.feed].slice(0, 35),
+    feed: [entry, ...state.feed].slice(0, 30),
   };
 }
 
@@ -809,7 +749,7 @@ export function reshuffleMinister(
     id: `reshuffle_${Date.now()}`,
     year: state.year,
     tag: "RESHUFFLE",
-    text: `Presiden me-reshuffle ${target.roleTitle} ke latar belakang ${originMeta.label}.`,
+    text: `Presiden me-reshuffle ${target.roleTitle} ke ${originMeta.label}.`,
   };
 
   return {
@@ -817,6 +757,100 @@ export function reshuffleMinister(
     reshuffleDoneYear: state.year,
     metrics: nextMetrics,
     members: updatedMembers,
-    feed: [entry, ...state.feed].slice(0, 35),
+    feed: [entry, ...state.feed].slice(0, 30),
+  };
+}
+
+export function closeYearAndAdvance(
+  state: GameSimulationState
+): GameSimulationState {
+  if (state.status !== "ACTIVE") return state;
+
+  const counts: Record<PolicyOptionId, number> = { A: 0, B: 0, C: 0 };
+  state.members.forEach((m) => {
+    const opt = m.votedOption ?? "A";
+    counts[opt] += 1;
+  });
+
+  const winningId: PolicyOptionId =
+    counts.B > counts.A && counts.B >= counts.C
+      ? "B"
+      : counts.C > counts.A && counts.C > counts.B
+      ? "C"
+      : "A";
+
+  const chosenOption =
+    state.currentIssue.options.find((o) => o.id === winningId) ??
+    state.currentIssue.options[0];
+
+  const nextMetrics = applyMetricsDelta(state.metrics, chosenOption.delta);
+
+  const decisionFeed: FeedEntry = {
+    id: `dec_${Date.now()}`,
+    year: state.year,
+    tag: "SIDANG",
+    text: `Stage Clear Tahun ${state.year}: "${chosenOption.title}" disahkan (${counts.A}A/${counts.B}B/${counts.C}C).`,
+  };
+
+  const collapsed =
+    nextMetrics.publicTrust <= 10 ||
+    nextMetrics.dprSupport <= 10 ||
+    nextMetrics.economicStability <= 10;
+
+  if (collapsed) {
+    return {
+      ...state,
+      metrics: nextMetrics,
+      activeScandal: null,
+      status: "ENDED",
+      endSummary:
+        "GAME OVER! Pemerintahan goyah akibat krisis kepercayaan publik, dukungan DPR, atau stabilitas pasar.",
+      feed: [decisionFeed, ...state.feed].slice(0, 30),
+    };
+  }
+
+  if (state.year >= state.maxYears) {
+    return {
+      ...state,
+      metrics: nextMetrics,
+      activeScandal: null,
+      status: "ENDED",
+      endSummary: `VICTORY! Masa jabatan 5 tahun tuntas! APBN tersisa Rp ${nextMetrics.budgetTrillion}T • Publik ${nextMetrics.publicTrust}% • DPR ${nextMetrics.dprSupport}% • Audit ${nextMetrics.auditScore}%.`,
+      feed: [decisionFeed, ...state.feed].slice(0, 30),
+    };
+  }
+
+  const nextYear = state.year + 1;
+  const unused = NATIONAL_ISSUES.filter(
+    (iss) => !state.usedIssueIds.includes(iss.id)
+  );
+  const nextIssue =
+    unused[0] ?? NATIONAL_ISSUES[(nextYear - 1) % NATIONAL_ISSUES.length];
+
+  const nextMembers = assignBotVotes(
+    state.members.map((m) => ({ ...m, votedOption: undefined })),
+    nextIssue
+  );
+
+  const nextScandal = PUBLIC_SCANDALS[(nextYear - 1) % PUBLIC_SCANDALS.length];
+
+  return {
+    ...state,
+    year: nextYear,
+    metrics: nextMetrics,
+    activeScandal: nextScandal,
+    currentIssue: nextIssue,
+    usedIssueIds: [...state.usedIssueIds, nextIssue.id],
+    members: nextMembers,
+    feed: [
+      {
+        id: `yr_${Date.now()}`,
+        year: nextYear,
+        tag: "BERITA",
+        text: `Memasuki World 1-${nextYear} (Tahun ke-${nextYear}): "${nextIssue.title}".`,
+      },
+      decisionFeed,
+      ...state.feed,
+    ].slice(0, 30),
   };
 }
