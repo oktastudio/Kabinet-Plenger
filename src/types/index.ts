@@ -8,80 +8,82 @@ export type RoleId =
   | "MENKES"
   | "MENHUKUM";
 
-export type OriginType = "TEKNOKRAT" | "PARTAI" | "PENGUSAHA";
+export type FactionType = "REFORMIS" | "OPORTUNIS";
 
-export type PolicyOptionId = "A" | "B" | "C";
+export type PolicyAlignment = "BERSIH" | "KOMPROMI" | "TITIPAN";
 
-export interface CabinetStateMetrics {
-  budgetTrillion: number;
-  publicTrust: number;
-  dprSupport: number;
-  economicStability: number;
-  auditScore: number;
+export type GameMode = "SOLO" | "MULTIPLAYER";
+
+export type TurnPhase =
+  | "ROLE_REVEAL"
+  | "SELECT_EXECUTOR"
+  | "PRESIDENT_DISCARD"
+  | "MINISTER_ENACT"
+  | "DEBATE_VOTE"
+  | "ENDED";
+
+export interface CabinetMetrics {
+  budgetTrillion: number; // Kas APBN (Rp Triliun)
+  publicTrust: number; // Kepercayaan Publik (0-100)
+  dprSupport: number; // Dukungan Koalisi DPR (0-100)
+  auditScore: number; // Skor Audit & Tata Kelola (0-100)
 }
 
-export interface PolicyOption {
-  id: PolicyOptionId;
+export interface PolicyCard {
+  id: string;
+  alignment: PolicyAlignment;
   title: string;
   summary: string;
-  realWorldTradeoff: string;
-  delta: Partial<CabinetStateMetrics>;
+  tradeoffNote: string;
+  delta: Partial<CabinetMetrics>;
 }
 
-export interface NationalIssue {
+export interface CrisisScenario {
   id: string;
-  ministry: string;
-  title: string;
-  context: string;
-  options: PolicyOption[];
-}
-
-export interface PublicScandal {
-  id: string;
+  ministryHint: string;
   headline: string;
-  detail: string;
-  severity: "TINGGI" | "KRITIS";
-  responses: {
-    id: PolicyOptionId;
-    label: string;
-    note: string;
-    delta: Partial<CabinetStateMetrics>;
-  }[];
+  context: string;
+  cards: [PolicyCard, PolicyCard, PolicyCard];
 }
 
-export interface MinisterMember {
+export interface CabinetSeat {
   id: string;
   name: string;
   roleId: RoleId;
   roleTitle: string;
-  origin: OriginType;
-  isPlayer: boolean;
-  isBot: boolean;
-  tacticalFund: number;
-  taskDoneYear: number;
-  votedOption?: PolicyOptionId;
+  isHuman: boolean;
+  faction: FactionType;
+  eliminated: boolean;
+  suspicion: number; // Skor kecurigaan AI (0-100)
+  voteChoice?: string; // "AMAN" atau "RESHUFFLE:<seatId>"
 }
 
-export interface FeedEntry {
+export interface LogEntry {
   id: string;
   year: number;
-  tag: "SIDANG" | "BERITA" | "SEKTORAL" | "LOBI" | "RESHUFFLE" | "SKANDAL";
+  tag: "SIDANG" | "KEBIJAKAN" | "RESHUFFLE" | "SKANDAL" | "HASIL";
   text: string;
 }
 
-export interface GameSimulationState {
-  countryName: string;
-  presidentName: string;
+export interface PlengerGameState {
+  mode: GameMode;
+  cabinetName: string;
   year: number;
   maxYears: number;
-  status: "ACTIVE" | "ENDED";
-  endSummary: string;
-  reshuffleDoneYear: number;
-  activeScandal: PublicScandal | null;
-  metrics: CabinetStateMetrics;
-  currentIssue: NationalIssue;
-  usedIssueIds: string[];
-  members: MinisterMember[];
-  playerId: string;
-  feed: FeedEntry[];
+  phase: TurnPhase;
+  metrics: CabinetMetrics;
+  seats: CabinetSeat[];
+  presidentSeatId: string;
+  executorSeatId: string | null;
+  lastExecutorSeatId: string | null;
+  currentCrisis: CrisisScenario;
+  usedCrisisIds: string[];
+  drawnCards: PolicyCard[]; // 3 kartu awal Presiden
+  passedCards: PolicyCard[]; // 2 kartu ke Menteri Pelaksana
+  lastEnactedCard: PolicyCard | null;
+  activeHumanIndex: number; // Untuk giliran Pass-and-Play Multiplayer
+  privacyCurtainOpen: boolean;
+  winnerFaction: FactionType | "NONE" | null;
+  endReason: string;
+  logs: LogEntry[];
 }
