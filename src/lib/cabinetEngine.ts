@@ -834,6 +834,13 @@ export function closeYearAndAdvance(
 
   const nextScandal = PUBLIC_SCANDALS[(nextYear - 1) % PUBLIC_SCANDALS.length];
 
+  const nextYearFeed: FeedEntry = {
+    id: `yr_${Date.now()}`,
+    year: nextYear,
+    tag: "BERITA",
+    text: `Memasuki World 1-${nextYear} (Tahun ke-${nextYear}): "${nextIssue.title}".`,
+  };
+
   return {
     ...state,
     year: nextYear,
@@ -842,15 +849,6 @@ export function closeYearAndAdvance(
     currentIssue: nextIssue,
     usedIssueIds: [...state.usedIssueIds, nextIssue.id],
     members: nextMembers,
-    feed: [
-      {
-        id: `yr_${Date.now()}`,
-        year: nextYear,
-        tag: "BERITA",
-        text: `Memasuki World 1-${nextYear} (Tahun ke-${nextYear}): "${nextIssue.title}".`,
-      },
-      decisionFeed,
-      ...state.feed,
-    ].slice(0, 30),
+    feed: [nextYearFeed, decisionFeed, ...state.feed].slice(0, 30),
   };
 }
