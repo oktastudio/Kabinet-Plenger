@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Kabinet Plenger — Simulasi Pemerintahan & APBN",
+  title: "Kabinet Plenger — Simulasi Sidang & Agenda Rahasia",
   description:
-    "Simulasi menjadi Presiden dan Menteri dalam dinamika politik dan anggaran Indonesia.",
+    "Game simulasi kabinet Indonesia: kelola APBN, deteksi menteri titipan, dan bertahan 5 tahun.",
 };
 
 export default function RootLayout({
@@ -14,7 +13,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id">
-      <body className="antialiased">{children}</body>
+      <body style={{ margin: 0, padding: 0, backgroundColor: "#141210" }}>
+        {children}
+      </body>
     </html>
   );
 }
